@@ -1,9 +1,9 @@
-# This class implements a two way conversion logic between base 10 and bases
-# 36,62,85,93 numbers.
-#
-# Base 36 numbers use the symbols 0..9a..z
-# Base 62 numbers use the symbols 0..9a..zA..Z
-#
+# This class implements a two way conversion logic between base 10
+# and base 36,62,85,93 numbers.
+# Base 36 numbers use the symbols 0..9A..Z
+# Base 62 numbers use the symbols 0..9A..Za..z
+# Base 85 numbers use the symbols 0..9A..Za..z!#$%&()*+-;<=>?@^_`{|}~
+# Base 93 numbers use the symbols 0..9A..Za..z!#$%&()*+-;<=>?@^_`{|}~"',./:[\]
 # for human readable, meaningful numbers.
 
 
