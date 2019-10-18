@@ -4,15 +4,17 @@ import getpass
 import re
 import sys
 import clipboard
-from MultiBaseEncoder import MultiBaseEncoder
 from ShamirSecret import ShamirSecret
 from MersennePrimes import MersennePrimes
+from Base85BinaryEncoder import Base85IntToBytesEncoder
+from MultiBaseDigitEncoder import MultiBaseEncoder
 
 _DEFAULT_MIN = 3
 _DEFAULT_SHARES = 6
-_multi_base_encoder = MultiBaseEncoder(93)
+_base62 = MultiBaseEncoder(62)
+_base93 = MultiBaseEncoder(93)
 _PRIME = MersennePrimes().get_mersenne_prime(13)
-_shamir_secret = ShamirSecret(_PRIME, _multi_base_encoder)
+_shamir_secret = ShamirSecret(_PRIME, _base93)
 
 
 def print_usage_and_exit(status=1):
@@ -43,9 +45,9 @@ def _reconstruct(minimum, prime=_PRIME):
       continue
     p0 = p.partition('-')[0].strip()
     p1 = p.partition('-')[2].strip()
-    poly.append((int(p0), _multi_base_encoder.decode(p1)))
+    poly.append((int(p0), _base62.decode(p1)))
     count += 1
-  secret = _multi_base_encoder.encode(_shamir_secret.recover_secret(poly))
+  secret = _base93.encode(_shamir_secret.recover_secret(poly))
   return secret
 
 
@@ -90,7 +92,7 @@ def main():
       except Exception as error:
         print('ERROR', error)
 
-    keycode = _multi_base_encoder.decode(key.strip())
+    keycode = _base93.decode(key.strip())
 
     if minimum is None:
       minimum = _DEFAULT_MIN
@@ -106,12 +108,12 @@ def main():
     print('shares:')
     if shares:
         for share in shares:
-            print('  ', str(share[0]) +"-" + _multi_base_encoder.encode(share[1]))
+            print('  ', str(share[0]) +"-" + str(_base62.encode(share[1])))
 
-    test1 = _multi_base_encoder.encode(_shamir_secret.recover_secret(shares[:minimum]))
-    test2 = _multi_base_encoder.encode(_shamir_secret.recover_secret(shares[-minimum:]))
+    test1 = _base62.encode(_shamir_secret.recover_secret(shares[:minimum]))
+    test2 = _base62.encode(_shamir_secret.recover_secret(shares[-minimum:]))
 
-    if test1 == test2 and test1 == _multi_base_encoder.encode(secret):
+    if test1 == test2 and test1 == _base62.encode(secret):
       print("Minimum shares reconstruction test passed, generation complete.")
     else:
       print("Minimum shares reconstruction test not passed.")

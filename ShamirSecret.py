@@ -1,6 +1,6 @@
 import random
 import functools
-from MultiBaseEncoder import MultiBaseEncoder
+from MultiBaseDigitEncoder import MultiBaseEncoder
 
 
 class ShamirSecret:
