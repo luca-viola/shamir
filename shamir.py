@@ -10,7 +10,7 @@ from Base85BinaryEncoder import Base85IntToBytesEncoder
 from MultiBaseDigitEncoder import MultiBaseEncoder
 
 _DEFAULT_MIN = 3
-_DEFAULT_SHARES = 6
+_DEFAULT_SHARES = 5
 _base62 = MultiBaseEncoder(62)
 _base93 = MultiBaseEncoder(93)
 _PRIME = MersennePrimes().get_mersenne_prime(13)
