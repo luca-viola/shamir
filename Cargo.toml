@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 clap = { version = "4.5", features = ["derive"] }
 arboard = "3"
-rpassword = "7.3"
+rpassword = "7.5"
 rand = "0.8"
 num-bigint = "0.4"
 num-traits = "0.2"
